@@ -1,3 +1,3 @@
 # frantomapa
-Frantomapa Educational Aid
+Frantomapa Educational Aid:
 This is the official website for Frantomapa Educational Aid, Ghana
