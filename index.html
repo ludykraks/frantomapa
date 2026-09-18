@@ -17,24 +17,27 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
   <link href="css/home-modern.css" rel="stylesheet">
+  <link href="css/site.css" rel="stylesheet">
+  <script src="js/site.js" defer></script>
 </head>
-<body>
+<body id="top">
+<a class="skip-link" href="#main-content">Skip to content</a>
 <header class="site-header">
-  <a class="brand" href="index" aria-label="Frantomapa home"><img src="images/frantomapa-logo-3.png" alt="Frantomapa Educational Aid"></a>
-  <button class="menu-toggle" aria-expanded="false" aria-controls="main-nav">Menu</button>
+  <a class="brand" href="index.html" aria-label="Frantomapa home"><img src="images/frantomapa-logo-3.png" alt="Frantomapa Educational Aid" width="230"></a>
+  <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav" hidden>Menu</button>
   <nav id="main-nav" class="main-nav" aria-label="Main navigation">
-    <a href="index" aria-current="page">Home</a><a href="about">About Us</a><a href="team">Team</a><a href="kidpreneurship">Kidpreneurship</a><a href="#contact-us">Contact</a>
-    <a class="nav-cta" href="#donate">Donate</a>
+    <a href="index.html" aria-current="page">Home</a><a href="about.html">About Us</a><a href="team.html">Team</a><a href="kidpreneurship.html">Kidpreneurship</a>
+    <a href="#contact-us">Contact</a><a class="nav-cta" href="#donate">Donate</a>
   </nav>
 </header>
 
-<main>
+<main id="main-content" tabindex="-1">
 <section class="hero" id="topheader">
   <div class="hero-copy">
     <span class="eyebrow">Education • STEM • Opportunity</span>
     <h1>Helping children learn, create, and shape the future.</h1>
     <p>We give underprivileged Ghanaian children access to education and help raise the standard of STEM learning, so more young people can become critical thinkers and innovators.</p>
-    <div class="actions"><a class="btn primary" href="#donate">Support our mission</a><a class="btn text-btn" href="about">Discover our work <span>→</span></a></div>
+    <div class="actions"><a class="btn primary" href="#donate">Support our mission</a><a class="btn text-btn" href="about.html">Discover our work <span>→</span></a></div>
   </div>
   <div class="hero-visual">
     <img src="images/frantomapa-about-2.jpg" alt="Children participating in a Frantomapa educational activity">
@@ -44,7 +47,7 @@
 
 <section class="intro">
   <p class="kicker">Who Are We?</p>
-  <div class="intro-grid"><h2>Every child deserves the opportunity to keep learning.</h2><div><p>Frantomapa Educational Aid is a non-governmental organisation formed in Ghana on 8 May 2016. From our base in Accra, we work to expand educational opportunity and strengthen STEM learning.</p><a class="inline-link" href="about">More about Frantomapa →</a></div></div>
+  <div class="intro-grid"><h2>Every child deserves the opportunity to keep learning.</h2><div><p>Frantomapa Educational Aid is a non-governmental organisation formed in Ghana on 8 May 2016. From our base in Accra, we work to expand educational opportunity and strengthen STEM learning.</p><a class="inline-link" href="about.html">More about Frantomapa →</a></div></div>
 </section>
 
 <section class="work">
@@ -77,10 +80,6 @@
 </main>
 
 <footer><a href="#topheader"><img src="images/frantomapa-logo-3.png" alt="Frantomapa"></a><p>© 2026 Frantomapa Educational Aid. All rights reserved.</p></footer>
-<script>
-const toggle=document.querySelector('.menu-toggle'),nav=document.querySelector('.main-nav');
-toggle.addEventListener('click',()=>{const open=toggle.getAttribute('aria-expanded')==='true';toggle.setAttribute('aria-expanded',String(!open));nav.classList.toggle('open');});
-nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('open');toggle.setAttribute('aria-expanded','false');}));
-</script>
+
 </body>
 </html>
