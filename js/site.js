@@ -4,14 +4,18 @@
   const toggle = document.querySelector('.menu-toggle');
   const nav = document.querySelector('.main-nav');
   if (header && toggle && nav) {
+    const mobile = window.matchMedia('(max-width: 900px)');
     const closeMenu = () => {
+      if (mobile.matches && nav.contains(document.activeElement)) toggle.focus();
       nav.classList.remove('open');
+      nav.inert = mobile.matches;
       toggle.setAttribute('aria-expanded', 'false');
       toggle.textContent = 'Menu';
     };
     toggle.addEventListener('click', () => {
       const open = toggle.getAttribute('aria-expanded') !== 'true';
       nav.classList.toggle('open', open);
+      nav.inert = mobile.matches && !open;
       toggle.setAttribute('aria-expanded', String(open));
       toggle.textContent = open ? 'Close' : 'Menu';
     });
@@ -24,33 +28,16 @@
     });
     document.addEventListener('click', event => { if (!header.contains(event.target)) closeMenu(); });
     header.addEventListener('focusout', event => { if (!header.contains(event.relatedTarget)) closeMenu(); });
-    window.matchMedia('(min-width: 901px)').addEventListener('change', closeMenu);
+    mobile.addEventListener('change', () => {
+      const toggleFocused = document.activeElement === toggle;
+      closeMenu();
+      if (!mobile.matches && toggleFocused) nav.querySelector('a').focus();
+    });
+    closeMenu();
     header.classList.add('nav-ready');
     toggle.hidden = false;
   }
 
-  // Content is visible by default, including when scripts or motion are disabled.
-  const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  if (motion.matches || !('IntersectionObserver' in window) || !Element.prototype.animate) return;
-  const active = new Set();
-  const observer = new IntersectionObserver(entries => {
-    for (const entry of entries) {
-      if (!entry.isIntersecting) continue;
-      observer.unobserve(entry.target);
-      if (motion.matches) continue;
-      const animation = entry.target.animate([
-        { opacity: 0, transform: 'translateY(20px)' },
-        { opacity: 1, transform: 'translateY(0)' }
-      ], { duration: 550, easing: 'cubic-bezier(.2,.7,.2,1)' });
-      active.add(animation);
-      animation.onfinish = animation.oncancel = () => active.delete(animation);
-    }
-  }, { threshold: 0.12 });
-  document.querySelectorAll('.hero-copy, .hero-visual, .page-hero > *, .intro-grid > *, .card, .purpose-item, .focus-grid li, .person-card, .story-grid > *, .report-panel, .contact-grid > div').forEach(element => observer.observe(element));
-  motion.addEventListener('change', event => {
-    if (!event.matches) return;
-    observer.disconnect();
-    active.forEach(animation => animation.cancel());
-    active.clear();
-  });
+  // Keep content visible: observer-triggered reveals can hide an already painted
+  // element and override its hover transform. Motion belongs to interactions.
 })();
